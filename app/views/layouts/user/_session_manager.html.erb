@@ -4,8 +4,8 @@
       <%= current_user.name %>
     </a>
     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
-    <%= link_to "Edit User", edit_user_registration_path, class: "dropdown-item" %>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
+    <%= link_to "Edit User Account", edit_user_registration_path, class: "dropdown-item" %>
+       <li><%= link_to "Add new recipe", new_recipe_path, class: "dropdown-item" %></li>
       <li><hr class="dropdown-divider"></li>
       
       <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item" %></li>

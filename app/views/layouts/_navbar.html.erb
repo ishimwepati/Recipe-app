@@ -10,8 +10,13 @@
           <%= link_to "Home", root_path, class: 'nav-link' %>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <%= link_to "Recipes", recipes_path, class: 'nav-link' %>
         </li>
+        <% if current_user %>
+        <li class="nav-item">
+          <%= link_to "Private Recipes", private_recipes_path, class: 'nav-link' %>
+        </li>
+        <%end%>
       </ul>
       <ul class="navbar-nav">
         <%= render "layouts/user/session_manager" %>

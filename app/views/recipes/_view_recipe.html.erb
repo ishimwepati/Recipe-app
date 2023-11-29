@@ -1,0 +1,40 @@
+<div class="container w-100">
+  <div class="container w-100 position-relative d-flex flex-column">
+    <h1 class="align-self-center"><%= @recipe.name %></h1>  
+    <div class="form-check position-absolute top-50 end-0 form-switch">
+      <%= form_with(model: @recipe, local: true) do |form| %>
+        <div class="d-flex flex-row-reverse min-h-100 w-100">
+          <%= form.label :public, class: 'form-check-label', 'data-bs-toggle': 'tooltip', 'data-bs-placement': 'top', title: 'Tooltip on top' do %>
+            <%= form.check_box :public, class: 'form-check-input', id: 'flexSwitchCheckDefault', onchange: 'this.form.submit();' %>
+            Public
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="container gap-2">
+    <h3>Preparation time: <%= @recipe.preparation_time %></h3>
+    <h4>Cooking time: <%= @recipe.cooking_time %></h4>
+    <p><span class="fs-4">Steps: </span><%= @recipe.description %></p>
+  </div>
+</div>
+
+
+<%
+=begin%>
+ 
+<div class="form-check position-absolute top-50 end-0 form-switch">
+  <%= form_with(model: @recipe, local: true) do |form| %>
+    <div class="d-flex flex-row-reverse min-h-100 w-100">
+      <%= form.label :public, class: 'form-check-label', 'data-bs-toggle': 'tooltip', 'data-bs-placement': 'top', title: 'Tooltip on top' do %>
+        <%= form.check_box :public, class: 'form-check-input', id: 'flexSwitchCheckDefault' %>
+        Public
+      <% end %>
+    </div>
+
+    <%= form.submit 'Update Recipe', class: 'btn btn-primary' %>
+  <% end %>
+</div> 
+<%
+=end%>
+

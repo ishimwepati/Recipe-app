@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+ 
+  <%= render "recipes/view_recipe"%>
+
+<div class="d-flex flex-column">
+  <div class="d-flex justify-content-between ">
+    <%= link_to "Back to recipes", recipes_path, class:"btn btn-secondary" %>
+    <%= link_to "Add Ingredient", edit_recipe_path(@recipe), class:"btn btn-primary" %> 
+  </div>
+</div>
