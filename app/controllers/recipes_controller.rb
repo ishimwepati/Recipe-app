@@ -1,28 +1,21 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: %i[ show edit update destroy ]
+  before_action :set_recipe, only: %i[show edit update destroy]
   before_action :authenticate_user!, except: %i[show index]
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.where(public: true)
   end
 
   # GET /recipes/1 or /recipes/1.json
   def show
     @recipe = Recipe.find(params[:id])
-    @recipe.user = current_user
-    # @recipe.ingredients.build
-    # @recipe.steps.build
-    # @recipe.comments.build
-    # @recipe.ingredients.each do |ingredient|
-    #   ingredient.recipe_id = @recipe.id
-    # end
-    # @recipe.steps.each do |step|
-    #   step.recipe_id = @recipe.id
-    # end
-    # @recipe.comments.each do |comment|
-    #   comment.recipe_id = @recipe.id
-    # end
+    # Ensure the user accessing the public recipe is authenticated
+    if @recipe.public || (user_signed_in? && @recipe.user == current_user)
+      # Show the recipe details
+    else
+      redirect_to recipes_path, alert: "You don't have permission to view this recipe."
+    end
   end
 
   # GET /recipes/new
@@ -52,14 +45,14 @@ class RecipesController < ApplicationController
   # PATCH/PUT /recipes/1 or /recipes/1.json
   def update
     respond_to do |format|
-      if @recipe.update(recipe_params)
-        format.html { redirect_to recipe_url(@recipe), notice: "Recipe was successfully updated." }
-        format.json { render :show, status: :ok, location: @recipe }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @recipe.errors, status: :unprocessable_entity }
-      end
+    if @recipe.update(recipe_params)
+      format.html { redirect_to recipe_url(@recipe), notice: "Recipe was successfully updated." }
+      format.json { render :show, status: :ok, location: @recipe }
+    else
+      format.html { render :edit, status: :unprocessable_entity }
+      format.json { render json: @recipe.errors, status: :unprocessable_entity }
     end
+  end
   end
 
   # DELETE /recipes/1 or /recipes/1.json
@@ -82,5 +75,10 @@ class RecipesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def recipe_params
       params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public).merge(user_id: current_user.id)
+    end
+
+    # Additional check to ensure only the owner can delete a recipe
+    def authorize_owner!
+      redirect_to recipes_path, alert: "You don't have permission to delete this recipe." unless @recipe.user == current_user
     end
 end

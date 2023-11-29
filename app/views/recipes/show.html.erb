@@ -2,9 +2,9 @@
  
   <%= render "recipes/view_recipe"%>
 
-<div>
-  <%= link_to "Add Ingredient", edit_recipe_path(@recipe) %> |
-  <%= link_to "Back to recipes", recipes_path %>
-
-  <%= button_to "Destroy this recipe", @recipe, method: :delete %>
+<div class="d-flex flex-column">
+  <div class="d-flex justify-content-between ">
+    <%= link_to "Back to recipes", recipes_path, class:"btn btn-secondary" %>
+    <%= link_to "Add Ingredient", edit_recipe_path(@recipe), class:"btn btn-primary" %> 
+  </div>
 </div>

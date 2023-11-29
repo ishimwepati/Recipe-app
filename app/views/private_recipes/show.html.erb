@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+ 
+  <%= render "recipes/view_recipe"%>
+
+<div>
+  <%= link_to "Add Ingredient", edit_recipe_path(@recipe) %> |
+  <%= link_to "Back to recipes", recipes_path %>
+
+  <%= button_to "Destroy this recipe", @recipe, method: :delete %>
+</div>
