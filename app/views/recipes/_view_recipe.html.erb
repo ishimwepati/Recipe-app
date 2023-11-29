@@ -1,0 +1,16 @@
+<div class="container w-100">
+  <div class="container w-100 position-relative d-flex flex-column">
+    <h1 class="align-self-center"><%= @recipe.name %></h1>  
+    <div class="form-check position-absolute top-50 end-0 form-switch ">
+    <div class="d-flex border min-h-100 w-100">
+      <label class="form-check-label" for="flexSwitchCheckDefault">Public</label>
+      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+    </div>
+    </div>
+  </div>
+  <div class="container gap-2">
+    <h3>Preparation time: <%= @recipe.preparation_time %></h3>
+    <h4>Cooking time: <%= @recipe.cooking_time %></h4>
+    <p><span class="fs-4">Steps: </span><%= @recipe.description %></p>
+  </div>
+</div>
