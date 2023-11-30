@@ -1,0 +1,16 @@
+<% @foods.each do |food| %>
+  <%= link_to food_path(food), class: "card d-flex w-100 flex-row p-2 text-decoration-none text-dark", style: "width: 18rem;", 'data-bs-toggle': 'tooltip', 'data-bs-placement': 'top', title: 'Click to view food' do %>
+
+    <ul class="list-group list-group-horizontal-sm w-100">
+      <li class="list-group-item list-group-item-dark w-100"><%= food.name %></li>
+      <li class="list-group-item list-group-item-dark w-100"><%= display_quantity(food.quantity, food.measurement_unit) %></li>
+      <li class="list-group-item list-group-item-dark w-100">$ <%= food.price %></li>
+
+      <li class="list-group-item list-group-item-dark w-100 d-flex justify-content-between">
+        <%= button_to "Modify", edit_food_path(food), class: "btn btn-primary" %>
+        <%= button_to "Delete", food, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+      </li>
+    </ul>
+
+  <% end %>
+<% end %>

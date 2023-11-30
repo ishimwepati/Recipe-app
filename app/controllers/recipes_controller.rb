@@ -10,6 +10,7 @@ class RecipesController < ApplicationController
   # GET /recipes/1 or /recipes/1.json
   def show
     @recipe = Recipe.find(params[:id])
+    @foods = Food.all
     # Ensure the user accessing the public recipe is authenticated
     if @recipe.public || (user_signed_in? && @recipe.user == current_user)
       # Show the recipe details

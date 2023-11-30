@@ -4,7 +4,19 @@
 
 <div class="d-flex flex-column">
   <div class="d-flex justify-content-between ">
+    <%= link_to "Generate shopping list", root_path, class:"btn btn-secondary" %>
     <%= link_to "Back to recipes", recipes_path, class:"btn btn-secondary" %>
-    <%= link_to "Add Ingredient", edit_recipe_path(@recipe), class:"btn btn-primary" %> 
+    <%= link_to "Add Ingredient", new_food_path, class:"btn btn-primary" %> 
   </div>
 </div>
+
+ <ul class="list-group list-group-horizontal w-100 mt-4">
+      <li class="list-group-item list-group-item-dark fs-6 fw-bold w-100">Food</li>
+      <li class="list-group-item list-group-item-dark fs-6 fw-bold w-100">Quantity</li>
+      <li class="list-group-item list-group-item-dark fs-6 fw-bold w-100">Value</li>
+      <li class="list-group-item list-group-item-dark fs-6 fw-bold w-100">Actions</li>
+    </ul>
+
+  <%= render partial: "foods/ingredient_menu" %>
+
+
