@@ -1,0 +1,22 @@
+<p class="page-title">Edit Ingredient</p>
+<div class="foods-container">
+  <table>
+    <tr>
+      <th>Food</th>
+      <th>Measurement Unit</th>
+      <th>Unit Price</th>
+      <th>Actions</th>
+    </tr>
+    <tr>
+      <td><%= @ingredient.food.name %></td>
+      <td><%= @ingredient.food.measurment_unit %></td>
+      <td>$ <%= @ingredient.food.price %></td>
+      <td>
+        <%= form_with model: @ingredient, url: recipe_ingredient_path(@recipe,@ingredient)  do |f| %>
+          <%= f.number_field :quantity, value: @ingredient.quantity %>
+          <%= f.submit "Modify" %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>

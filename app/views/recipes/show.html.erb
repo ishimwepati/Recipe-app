@@ -1,10 +1,49 @@
-<p style="color: green"><%= notice %></p>
- 
-  <%= render "recipes/view_recipe"%>
+<div class="container mt-5">
+  <h1 class="mb-4"><%=@recipe.name%></h1>
 
-<div class="d-flex flex-column">
-  <div class="d-flex justify-content-between ">
-    <%= link_to "Back to recipes", recipes_path, class:"btn btn-secondary" %>
-    <%= link_to "Add Ingredient", edit_recipe_path(@recipe), class:"btn btn-primary" %> 
+  <div class="">
+    <div class="recipe-header">
+      <section class="mb-4">
+        <p>Preparation Time: <%=@recipe.preparation_time%> Hour</p>
+        <p>Cooking Time: <%=@recipe.cooking_time %> Hour</p>
+        <p>Steps: <%=@recipe.description %></p>
+        <%= link_to "Generate Shopping List", general_shopping_list_path, class: 'btn btn-primary' %>
+      </section>
+
+      <section class="mb-4">
+        <%= form_for @recipe do |f| %>
+          <%= f.hidden_field :public, value: @recipe.public == false %>
+          Public:
+          <%= f.submit @recipe.public.to_s, class: 'btn btn-secondary' %>
+        <% end %>
+        <%= link_to "Add Ingredient", new_recipe_ingredient_path(@recipe), class: 'btn btn-success' %>
+      </section>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Quantity</th>
+          <th>Value</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @ingredients.each do |ingredient| %>
+          <tr>
+            <td><%= ingredient.food.name %></td>
+            <td><%= ingredient.quantity %> <%= ingredient.food.measurment_unit %></td>
+            <td>$ <%= (ingredient.food.price * ingredient.quantity)  %></td>
+            <td>
+              <section class="d-flex justify-content-between">
+                <%= link_to "Modify", edit_recipe_ingredient_path(@recipe, ingredient), class: 'btn btn-warning w-25 ' %>
+                <%= button_to "Remove", recipe_ingredient_path(@recipe, ingredient), method: :delete, class: 'btn btn-danger w-100' %>
+              </section>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <div class="">
+    <%= link_to 'Add Food', new_food_path, class: 'btn btn-primary mb-3 w-25' %>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Measurement Unit</th>
+          <th>Unit Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @foods.each do |food| %>
+          <tr>
+            <td><%= food.name %></td>
+            <td><%= food.measurment_unit %></td>
+            <td>$ <%= food.price %></td>
+            <td>
+              <% if can? :destroy, food %>
+                <%= button_to "Delete", food_path(food), method: :delete, class: 'btn btn-danger' %>
+              <% else %>
+                <span class="text-muted">Used by other users</span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

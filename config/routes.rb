@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
-  resources :recipes
-  resources :private_recipes, only: %i[index show]
-  devise_for :users, controllers: {
-    sessions: "user/sessions",
-    registrations: "user/registrations",
-  }
-  root "main#index"
+
+  resources :recipes do
+    resources :ingredients
+  end
+  resources :foods
+  get 'public_recipes', to: 'recipes#public_recipes'
+  get 'general_shopping_list', to: 'main#shopping_list'
+  root 'recipes#public_recipes'
+  devise_for :users
 end
