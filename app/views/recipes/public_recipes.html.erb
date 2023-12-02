@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Public Recipes</h1>
+
+  <div class="">
+    <% @recipes.each do |recipe| %>
+      <div class="card mb-4">
+        <div class="card-body d-flex justify-content-between">
+          <section>
+            <p class="name"><%= recipe.name %></p>
+            <p>By: <%= recipe.user.name %></p>
+          </section>
+
+          <section>
+            <p class="mb-1">Total food items: <%= recipe.ingredients.length %></p>
+            <% total_price = 0 %>
+            <% recipe.ingredients.each do |ingredient| %>
+              <% total_price += ingredient.quantity * ingredient.food.price %>
+            <% end %>
+            <p class="mb-0">Total price: $ <%= total_price %></p>
+          </section>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 <div class="container mt-5">
-  <div class="">
-    <%= link_to 'Add Food', new_food_path, class: 'btn btn-primary mb-3 w-25' %>
+  <p class="page-title mb-4">Add New Ingredients</p>
 
+  <div class="table-responsive">
     <table class="table">
       <thead>
         <tr>
@@ -18,10 +18,11 @@
             <td><%= food.measurment_unit %></td>
             <td>$ <%= food.price %></td>
             <td>
-              <% if can? :destroy, food %>
-                <%= button_to "Delete", food_path(food), method: :delete, class: 'btn btn-danger' %>
-              <% else %>
-                <span class="text-muted">Used by other users</span>
+              <%= form_with model: @ingredient, url: recipe_ingredients_path(@recipe), class: 'd-flex' do |f| %>
+                <%= f.hidden_field :recipe_id, value: @recipe.id %>
+                <%= f.hidden_field :food_id, value: food.id %>
+                <%= f.number_field :quantity, value: 0, class: 'form-control me-2' %>
+                <%= f.submit "Add", class: 'btn btn-success' %>
               <% end %>
             </td>
           </tr>
