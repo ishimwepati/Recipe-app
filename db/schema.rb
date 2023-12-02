@@ -47,18 +47,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_02_110131) do
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
-  create_table "shopping_lists", force: :cascade do |t|
-    t.string "name"
-    t.decimal "quantity"
-    t.string "measurement_unit"
-    t.string "value"
-    t.bigint "ingredient_id", null: false
-    t.bigint "recipe_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["ingredient_id"], name: "index_shopping_lists_on_ingredient_id"
-    t.index ["recipe_id"], name: "index_shopping_lists_on_recipe_id"
-  end
+ 
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
