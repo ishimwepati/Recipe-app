@@ -6,7 +6,7 @@ class FoodsController < ApplicationController
   end
 
   def index
-    @foods = Food.all.includes([:ingredients]).order(created_at: :desc)
+    @foods = Food.all.includes(:ingredients).order(created_at: :desc)
   end
 
   def new
