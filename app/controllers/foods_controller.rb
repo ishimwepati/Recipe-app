@@ -1,7 +1,8 @@
 class FoodsController < ApplicationController
   load_and_authorize_resource
-  rescue_from CanCan::AccessDenied do |_exception|
-    redirect_to root_path, notice: 'Failed to delete this food item because it is being used by other users.'
+   rescue_from CanCan::AccessDenied do |_exception|
+    flash.now[:alert] = 'Failed to delete this food item because it is being used by other users.'
+    render :index
   end
 
   def index
@@ -13,24 +14,26 @@ class FoodsController < ApplicationController
   end
 
   def create
-    @food = Food.new(food_params)
-    @food.user = current_user
-    if @food.save
-      flash[:notice] = 'New Food is added to the list!'
-      redirect_to foods_path
-    else
-      flash[:notice] = @food.errors.full_messages.join(', ')
-      redirect_to request.referrer
-    end
+  @food = Food.new(food_params)
+  @food.user = current_user
+  if @food.save
+    flash[:notice] = 'New Food is added to the list!'
+    redirect_to foods_path
+  else
+    flash.now[:notice] = @food.errors.full_messages.join(', ')
+    render :new
   end
+end
 
   def destroy
-    @food = Food.find(params[:id])
-    @ingredients = @food.ingredients.includes([:recipes])
-    @ingredients.destroy_all
-    @food.destroy
-    redirect_to foods_path
-  end
+  @food = Food.find_by(id: params[:id])
+  return redirect_to foods_path, alert: 'Food not found.' unless @food
+
+  @ingredients = @food.ingredients.includes([:recipes])
+  @ingredients.destroy_all
+  @food.destroy
+  redirect_to foods_path, notice: 'Food was successfully destroyed.'
+end
 
   private
 
