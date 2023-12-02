@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <p class="page-title mb-4">Add New Ingredients</p>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Measurement Unit</th>
+          <th>Unit Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @foods.each do |food| %>
+          <tr>
+            <td><%= food.name %></td>
+            <td><%= food.measurment_unit %></td>
+            <td>$ <%= food.price %></td>
+            <td>
+              <%= form_with model: @ingredient, url: recipe_ingredients_path(@recipe), class: 'd-flex' do |f| %>
+                <%= f.hidden_field :recipe_id, value: @recipe.id %>
+                <%= f.hidden_field :food_id, value: food.id %>
+                <%= f.number_field :quantity, value: 0, class: 'form-control me-2' %>
+                <%= f.submit "Add", class: 'btn btn-success' %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

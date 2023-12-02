@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <div class="d-flex flex-column">
+    <% @recipes.each do |recipe| %>
+      <% if can? :read, recipe %>
+        <div class="card mb-4">
+            <div class="card-body border d-flex justify-content-between">
+                <div class="container">
+              <h5 class="card-title">
+                <%= link_to recipe_path(recipe), class: 'text-decoration-none text-dark' do %>
+                  <%= recipe.name %>
+                <% end %>
+              </h5>
+              <%= button_to "Delete", recipe_path(recipe), method: :delete, class: 'btn btn-danger w-25', data: { confirm: "Are you sure?" }  %>
+                  
+                </div>
+              <div class="container">
+              <p class="card-text mt-3"><%= recipe.description %></p>
+             </div>
+            </div>
+          </div>
+      <% end %>
+    <% end %>
+    <%= link_to 'Add Recipe', new_recipe_path, class: 'btn btn-primary w-25' %>
+  </div>
+</div>
