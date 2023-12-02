@@ -168,6 +168,6 @@ Feel free to check the [issues page](../../issues/).
 
 ## 📝 License <a name="license"></a>
 
-This project is [LICENSE](LICENSE.md) licensed.
+This project is [LICENSE](LICENSE) licensed.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
