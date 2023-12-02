@@ -33,9 +33,9 @@ RSpec.describe FoodsController, type: :controller do
   describe 'POST #create' do
     context 'with valid attributes' do
       it 'creates a new food' do
-        expect {
+        expect do
           post :create, params: { food: attributes_for(:food) }
-        }.to change(Food, :count).by(1)
+        end.to change(Food, :count).by(1)
       end
 
       it 'redirects to the foods index page' do
@@ -46,9 +46,9 @@ RSpec.describe FoodsController, type: :controller do
 
     context 'with invalid attributes' do
       it 'does not create a new food' do
-        expect {
+        expect do
           post :create, params: { food: attributes_for(:food, name: nil) }
-        }.not_to change(Food, :count)
+        end.not_to change(Food, :count)
       end
 
       it 'redirects to the previous page' do
@@ -61,9 +61,9 @@ RSpec.describe FoodsController, type: :controller do
   describe 'DELETE #destroy' do
     it 'destroys the food' do
       food # Create the food
-      expect {
+      expect do
         delete :destroy, params: { id: food.id }
-      }.to change(Food, :count).by(-1)
+      end.to change(Food, :count).by(-1)
     end
 
     it 'destroys associated ingredients' do
